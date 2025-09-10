@@ -1,0 +1,12 @@
+<div class="max-w-full px-4 py-2.5 rounded-2xl shadow-md"
+     [ngClass]="{
+       'bg-blue-600 text-white rounded-br-lg': message.sender === 'user',
+       'bg-gray-700 text-gray-100 rounded-bl-lg': message.sender === 'ai'
+     }">
+
+  @if (message.isHtml) {
+    <div class="prose prose-sm prose-invert max-w-none" [innerHTML]="message.text"></div>
+  } @else {
+    <p class="whitespace-pre-wrap">{{ message.text }}</p>
+  }
+</div>

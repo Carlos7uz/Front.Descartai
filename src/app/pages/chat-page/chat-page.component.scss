@@ -1,0 +1,26 @@
+
+main {
+  /* Para Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #2563eb #1f2937; /* Cor do "puxador" e do fundo */
+
+  /* Para Chrome, Safari, Edge e outros baseados em WebKit */
+  &::-webkit-scrollbar {
+    width: 10px; // Largura da barra de rolagem
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #111827; // Um cinza bem escuro para o fundo (gray-900)
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #2563eb; // O azul que usamos nos botões e balões (blue-600)
+    border-radius: 20px;
+    border: 3px solid #111827; // Cria um efeito de espaçamento ao redor do puxador
+
+    &:hover {
+      background-color: #1d4ed8; // Um azul um pouco mais escuro ao passar o mouse (blue-700)
+    }
+  }
+}
