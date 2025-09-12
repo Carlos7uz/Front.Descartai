@@ -1,15 +1,32 @@
 // src/app/services/chat.service.ts
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { catchError, delay, map } from 'rxjs/operators';
+import { ApiResponse } from '../models/api-response.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
+  readonly #http = inject(HttpClient)
+  readonly #apiUrl = 'http://localhost:3000/chat';
+
+  getAiResponse(userMessage: string): Observable<string> {
+    const body = { prompt: userMessage };
+
+    return this.#http.post<ApiResponse>(this.#apiUrl, body).pipe(
+      map(response => response.response),
+      catchError(error => {
+        console.error('Erro na chamada da API do back-end', error);
+        return of('Desculpa, não consegui me conectar ao servidor. tente novamente mais tarde.');
+      })
+    );
+  }
+
 
   // Mock da resposta da API do seu colega
-  getAiResponse(userMessage: string): Observable<string> {
+  getMockResponse(userMessage: string): Observable<string> {
     const normalizedMessage = userMessage.toLowerCase().trim();
     let aiTextResponse = '';
 
